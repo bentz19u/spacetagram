@@ -17,7 +17,6 @@ export async function fetchNasaImages(startDate: string): Promise<NasaImg[]> {
         new URLSearchParams({
           api_key: process.env.API_KEY ?? '',
           thumbs: 'true',
-          // count: '5',
           start_date: startDate,
         })
     );

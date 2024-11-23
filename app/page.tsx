@@ -1,6 +1,5 @@
 import { fetchNasaImages } from '@/app/lib/nasa-api';
-import { getDateBefore } from '@/app/lib/date-healper';
-import Image from 'next/image';
+import { getDateBefore, formatDateToLongForm } from '@/app/lib/date-helper';
 
 export default async function Home() {
   const numberDaysBefore = 5;
@@ -8,18 +7,19 @@ export default async function Home() {
   const images = await fetchNasaImages(date);
   // console.log(images);
   return (
-    <main>
-      <div>
+    <>
+      <div id='main-content' className={`mx-auto flex flex-col`}>
         {images?.map((image) => (
-          <Image
-            key={image.url}
-            src={image.url}
-            alt={`${image.title}`}
-            height={500}
-            width={500}
-          />
+          <article key={image.url} className={'mt-2 rounded-md bg-neutral-900'}>
+            <h2 className={'p-4'}>{image.title}</h2>
+            <img src={image.url} alt={`${image.title}`} className={'p-0'} />
+            <div className='article-footer p-4'>
+              {image.explanation}
+              <p className={'pt-2'}>{formatDateToLongForm(image.date)}</p>
+            </div>
+          </article>
         ))}
       </div>
-    </main>
+    </>
   );
 }

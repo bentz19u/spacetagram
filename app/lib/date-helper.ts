@@ -9,3 +9,13 @@ export function getDateBefore(daysBefore: number): string {
 
   return `${year}-${month}-${day}`;
 }
+
+export function formatDateToLongForm(dateString: string): string {
+  const date = new Date(dateString);
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+  return formatter.format(date);
+}
