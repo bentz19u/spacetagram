@@ -23,4 +23,8 @@ body {
     width: 56rem;
     align-items: center;
   }
+
+  #header-logo a {
+    padding-left: 1rem;
+  }
 }
