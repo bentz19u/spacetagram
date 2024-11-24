@@ -1,6 +1,6 @@
 import { fetchNasaImages, NasaImg } from '@/app/lib/nasa-api';
 import { getDateBefore } from '@/app/lib/date-helper';
-import { Card } from '@/app/ui/main/card';
+import { Card } from '@/app/ui/card/card';
 
 export default async function Home() {
   const numberDaysBefore = 5;
