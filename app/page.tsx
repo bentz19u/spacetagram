@@ -1,21 +1,14 @@
-import { fetchNasaImages, NasaImg } from '@/app/lib/nasa-api';
-import { getDateBefore } from '@/app/lib/date-helper';
-import { Card } from '@/app/ui/card/card';
+import { Suspense } from 'react';
+import IndexSkeleton from '@/app/ui/skeletons';
+import CardWrapper from '@/app/ui/card/card-wrapper';
 
 export default async function Home() {
-  const numberDaysBefore = 5;
-  const date = getDateBefore(numberDaysBefore);
-  const images = await fetchNasaImages(date);
-
-  // API return images sorted in ascending order by date
-  images.reverse();
-
   return (
     <>
       <div id='main-content' className={`mx-auto flex flex-col`}>
-        {images?.map((image: NasaImg) => (
-          <Card key={image.url} image={image} />
-        ))}
+        <Suspense fallback={<IndexSkeleton />}>
+          <CardWrapper />
+        </Suspense>
       </div>
     </>
   );

@@ -35,6 +35,7 @@ body {
 
     article {
       max-width: 42rem;
+      min-width: 42rem;
 
       img, iframe {
         max-width: 100%;
@@ -42,6 +43,10 @@ body {
 
       iframe {
         min-height: 23.625rem;
+      }
+
+      .card-skeleton-div {
+        min-height: 42rem;
       }
     }
   }
