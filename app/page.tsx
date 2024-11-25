@@ -7,6 +7,9 @@ export default async function Home() {
   const date = getDateBefore(numberDaysBefore);
   const images = await fetchNasaImages(date);
 
+  // API return images sorted in ascending order by date
+  images.reverse();
+
   return (
     <>
       <div id='main-content' className={`mx-auto flex flex-col`}>

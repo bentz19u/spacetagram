@@ -36,8 +36,12 @@ body {
     article {
       max-width: 42rem;
 
-      img {
+      img, iframe {
         max-width: 100%;
+      }
+
+      iframe {
+        min-height: 23.625rem;
       }
     }
   }
