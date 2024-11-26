@@ -10,7 +10,10 @@ export interface NasaImg {
   url: string;
 }
 
-export async function fetchNasaImages(startDate: string): Promise<NasaImg[]> {
+export async function fetchNasaImages(
+  startDate: string,
+  endDate: string
+): Promise<NasaImg[]> {
   try {
     const response = await fetch(
       `https://api.nasa.gov/planetary/apod?` +
@@ -18,9 +21,13 @@ export async function fetchNasaImages(startDate: string): Promise<NasaImg[]> {
           api_key: process.env.API_KEY ?? '',
           thumbs: 'true',
           start_date: startDate,
+          end_date: endDate,
         })
     );
-    return (await response.json()) as NasaImg[];
+    const result = (await response.json()) as NasaImg[];
+    // API doesn't allow order by so we do it here
+    result.reverse();
+    return result;
   } catch (error) {
     console.error('fetchNasaImages Error: ', error);
     throw new Error('Failed to fetch images from API.');

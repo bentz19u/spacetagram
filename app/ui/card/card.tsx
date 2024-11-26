@@ -13,7 +13,11 @@ export const Card = ({ image }: CardProps) => {
       {image.media_type == 'image' ? (
         <img src={image.url} alt={`${image.title}`} className={'p-0'} />
       ) : (
-        <iframe className='left-0 top-0 h-full w-full' src={image.url} />
+        <iframe
+          className='left-0 top-0 h-full w-full'
+          src={image.url}
+          title={image.title}
+        />
       )}
       <div className='article-footer flex w-full max-w-fit flex-col p-4'>
         <CardExplanation explanation={image.explanation} />
