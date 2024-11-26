@@ -21,7 +21,9 @@ export const Card = ({ image }: CardProps) => {
       )}
       <div className='article-footer flex w-full max-w-fit flex-col p-4'>
         <CardExplanation explanation={image.explanation} />
-        <p className={'pt-2'}>{formatDateToLongForm(image.date)}</p>
+        <p className={'pt-2 text-gray-400'}>
+          {formatDateToLongForm(image.date)}
+        </p>
       </div>
     </article>
   );

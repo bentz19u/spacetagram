@@ -10,7 +10,7 @@ export const CardExplanation = ({ explanation }: { explanation: string }) => {
       <p className={`${expanded ? '' : '... truncate'}`}>{explanation}</p>
       <button
         onClick={() => setExpanded(!expanded)}
-        className={'dark'}
+        className={'text-gray-400'}
       >{`${expanded ? 'less' : 'more'}`}</button>
     </div>
   );
