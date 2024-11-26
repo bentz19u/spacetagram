@@ -3,8 +3,7 @@
 import { getDateBefore } from '@/app/lib/date-helper';
 import { fetchNasaImages, NasaImg } from '@/app/lib/nasa-api';
 import { Card } from '@/app/ui/card/card';
-import { Suspense, useEffect, useRef, useState } from 'react';
-import IndexSkeleton, { CardSkeleton } from '@/app/ui/skeletons';
+import { useEffect, useRef, useState } from 'react';
 
 type cardWrapperProps = {
   initialImages: NasaImg[];
@@ -14,33 +13,42 @@ export default function CardWrapper({ initialImages }: cardWrapperProps) {
   const [images, setImages] = useState(initialImages);
   const [isFetching, setIsFetching] = useState(false);
 
-  let numberDaysBefore = 5;
-  let key = 0;
+  const numberDaysBefore = useRef(5);
+  const preloadImages = useRef<NasaImg[]>([]);
+  const observerRef = useRef<HTMLDivElement>(null);
 
   const fetchMoreImages = async () => {
     setIsFetching(true);
 
-    numberDaysBefore += 1;
-    const toDate = getDateBefore(numberDaysBefore);
-    numberDaysBefore += 5;
-    const fromDate = getDateBefore(numberDaysBefore);
-    const newImages = await fetchNasaImages(fromDate, toDate);
+    if (preloadImages.current.length > 0) {
+      setImages((prev) => [...prev, ...preloadImages.current]);
+    }
 
-    // API return images sorted in ascending order by date
-    setImages((prev) => [...prev, ...newImages.reverse()]);
+    numberDaysBefore.current += 1;
+    const toDate = getDateBefore(numberDaysBefore.current);
+    numberDaysBefore.current += 5;
+    const fromDate = getDateBefore(numberDaysBefore.current);
+
+    // then we query the next batch of images
+    try {
+      preloadImages.current = await fetchNasaImages(fromDate, toDate);
+    } catch (error) {
+      console.error('Failed to fetch images:', error);
+    }
+
     setIsFetching(false);
   };
 
-  const observerRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
+    fetchMoreImages();
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !isFetching) {
           fetchMoreImages();
         }
       },
-      { threshold: 1.0 }
+      { threshold: 0.1 }
     );
 
     if (observerRef.current) observer.observe(observerRef.current);
@@ -52,7 +60,9 @@ export default function CardWrapper({ initialImages }: cardWrapperProps) {
 
   return (
     <>
-      {images?.map((image: NasaImg) => <Card key={key++} image={image} />)}
+      {images?.map((image: NasaImg, index) => (
+        <Card key={`${image.url}-${index}`} image={image} />
+      ))}
       <div ref={observerRef} style={{ height: '1px' }} />
     </>
   );
