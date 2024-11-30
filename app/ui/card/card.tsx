@@ -8,7 +8,7 @@ type CardProps = {
 
 export const Card = ({ image }: CardProps) => {
   return (
-    <article className={'mt-2 rounded-md bg-neutral-900'}>
+    <article className={'sm:mt-4 sm:rounded-md sm:bg-neutral-900'}>
       <h2 className={'p-4'}>{image.title}</h2>
       {image.media_type == 'image' ? (
         <img src={image.url} alt={`${image.title}`} className={'p-0'} />

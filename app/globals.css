@@ -28,14 +28,20 @@ body {
     padding-left: 1rem;
   }
 
-  #main-content {
+  main {
     max-width: 42rem;
+    margin: auto;
+  }
+
+  #main-content {
+    max-width: 100%;
     width: 100%;
     align-items: center;
 
     article {
-      max-width: 42rem;
-      min-width: 42rem;
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
 
       img, iframe {
         max-width: 100%;

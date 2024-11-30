@@ -7,9 +7,6 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  console.log('use client');
-  console.log(error.message);
-
   return (
     <main className='mt-10 flex h-full flex-col items-center justify-center'>
       <h2 className='text-center'>

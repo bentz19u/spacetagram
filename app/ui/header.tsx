@@ -6,10 +6,10 @@ import Link from 'next/link';
 
 export default function Header() {
   return (
-    <header className='flex h-14 justify-center bg-neutral-900'>
+    <header className='sticky top-0 z-50 flex h-14 justify-center bg-black sm:bg-neutral-900'>
       <div id='header-content' className='flex justify-between text-center'>
-        <div className={`${cookie.className} text-3xl`}>Spacetagram</div>
-        <div id='header-logo' className='flex justify-center text-center'>
+        <div className={`${cookie.className} pl-4 text-3xl`}>Spacetagram</div>
+        <div id='header-logo' className='flex justify-center pr-4 text-center'>
           <Link
             href='https://www.linkedin.com/in/daniel-bentz-1682b137/'
             target='_blank'
