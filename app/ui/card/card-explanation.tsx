@@ -6,7 +6,7 @@ export const CardExplanation = ({ explanation }: { explanation: string }) => {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div>
+    <div className={'pt-2'}>
       <p className={`${expanded ? '' : '... truncate'}`}>{explanation}</p>
       <button
         onClick={() => setExpanded(!expanded)}

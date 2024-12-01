@@ -1,6 +1,7 @@
 import { formatDateToLongForm } from '@/app/lib/date-helper';
 import { NasaImg } from '@/app/lib/nasa-api';
 import { CardExplanation } from '@/app/ui/card/card-explanation';
+import { CardButtonActions } from '@/app/ui/card/card-button-actions';
 
 type CardProps = {
   image: NasaImg;
@@ -20,6 +21,7 @@ export const Card = ({ image }: CardProps) => {
         />
       )}
       <div className='article-footer flex w-full max-w-fit flex-col p-4'>
+        <CardButtonActions url={image.url} />
         <CardExplanation explanation={image.explanation} />
         <p className={'pt-2 text-gray-400'}>
           {formatDateToLongForm(image.date)}
