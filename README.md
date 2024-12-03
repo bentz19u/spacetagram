@@ -1,4 +1,4 @@
-Spacestagram is a website which shares photos from NASA's Astronomy Picture of the Day (APOD) image API.
+Spacetagram is a website which shares photos from NASA's Astronomy Picture of the Day (APOD) image API.
 
 It was build for practice purpose using Next.js.
 
