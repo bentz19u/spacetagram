@@ -4,6 +4,7 @@ import { getDateBefore } from '@/app/lib/date-helper';
 import { fetchNasaImages, NasaImg } from '@/app/lib/nasa-api';
 import { Card } from '@/app/ui/card/card';
 import { useEffect, useRef, useState } from 'react';
+import { CardSkeleton } from '@/app/ui/skeletons';
 
 type cardWrapperProps = {
   initialImages: NasaImg[];
@@ -40,6 +41,7 @@ export default function CardWrapper({ initialImages }: cardWrapperProps) {
   };
 
   useEffect(() => {
+    // we preload the next images
     fetchMoreImages();
 
     const observer = new IntersectionObserver(
@@ -63,6 +65,10 @@ export default function CardWrapper({ initialImages }: cardWrapperProps) {
       {images?.map((image: NasaImg, index) => (
         <Card key={`${image.url}-${index}`} image={image} />
       ))}
+
+      {isFetching &&
+        Array.from({ length: 5 }).map((_, idx) => <CardSkeleton key={idx} />)}
+
       <div ref={observerRef} style={{ height: '1px' }} />
     </>
   );
