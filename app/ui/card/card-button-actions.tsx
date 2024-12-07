@@ -2,7 +2,7 @@
 
 import { Tooltip } from '@mui/material';
 import ShareIcon from '@mui/icons-material/Share';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import styles from './card.module.css';
 
@@ -20,13 +20,22 @@ export const CardButtonActions = ({ url }: { url: string }) => {
   };
 
   const likeImage = () => {
+    localStorage.setItem(`liked-${url}`, 'true');
     setLiked(true);
     setShowAnimatedHeart(true); // Trigger the animation
   };
 
   const unLikeImage = () => {
+    localStorage.removeItem(`liked-${url}`);
     setLiked(false);
   };
+
+  useEffect(() => {
+    const savedState = localStorage.getItem(`liked-${url}`);
+    if (savedState) {
+      setLiked(true);
+    }
+  }, []);
 
   return (
     <div className={'flex pl-1 pr-1'}>
