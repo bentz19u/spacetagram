@@ -62,9 +62,12 @@ export default function CardWrapper({ initialImages }: cardWrapperProps) {
 
   return (
     <>
-      {images?.map((image: NasaImg, index) => (
-        <Card key={`${image.url}-${index}`} image={image} />
-      ))}
+      {images?.map(
+        (image: NasaImg, index) =>
+          image.media_type != 'other' && (
+            <Card key={`${image.url}-${index}`} image={image} />
+          )
+      )}
 
       {isFetching &&
         Array.from({ length: 5 }).map((_, idx) => <CardSkeleton key={idx} />)}
